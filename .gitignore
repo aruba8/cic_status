@@ -1,0 +1,4 @@
+.vscode
+env.list
+geckodriver.log
+run.sh

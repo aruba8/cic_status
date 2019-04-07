@@ -44,3 +44,18 @@ jobs:
       - store_artifacts:
           path: test-reports
           destination: test-reports
+
+workflows:
+  version: 2.1
+  commit-workflow:
+    jobs:
+      - build
+  scheduled-workflow:
+    triggers:
+      - schedule:
+          cron: "0 12,23 * * 1-5"
+          filters:
+            branches:
+              only: master
+    jobs:
+      - build

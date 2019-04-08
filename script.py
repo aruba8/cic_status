@@ -43,16 +43,29 @@ status_elem = WebDriverWait(driver, 10).until(
       EC.presence_of_element_located((By.XPATH, "//a[@class='ui-link' and contains(@href, 'viewcasehistory.do')]")))
 status = status_elem.text
 
+status_elem.click()
+
+WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//input[@type='submit' and @value='Logout']")))
+note_elems = driver.find_elements_by_xpath("//form/ol/li")
+
+note_template = "{0}. {1}\n"
+notes = "\n"
+counter = 1
+for note_el in note_elems:
+    notes = notes + note_template.format(counter, note_el.text)
+    counter = counter + 1
+
 driver.close()
 text = """
 {0}
 Today application status: {1}
+notes: {2}
 """
 
 if status != "Application Received":
-      text = text.format("Status changed!!!!!", status)
+    text = text.format("Status changed!!!!!", status, notes)
 else:
-      text = text.format("Nothing changed", status)
+    text = text.format("Nothing changed", status, notes)
 
 send_simple_message(mailgun_api, mailgun_domain, text)
 

@@ -19,7 +19,7 @@ def send_simple_message(mailgun_api, mailgun_domain, text):
     return requests.post(
         "https://api.mailgun.net/v3/{0}/messages".format(mailgun_domain),
         auth=("api", mailgun_api),
-        data={"from": "MAILGUN User <mailgun@{1}>".format(mailgun_domain),
+        data={"from": "MAILGUN User <mailgun@{0}>".format(mailgun_domain),
               "to": ["biomaks@gmail.com"],
               "subject": "status check report",
               "text": text})

@@ -62,7 +62,7 @@ Today application status: {1}
 notes: {2}
 """
 
-if status != "In Process":
+if status != "Decision Made":
     text = text.format("Status changed!!!!!", status, notes)
 else:
     text = text.format("Nothing changed", status, notes)
